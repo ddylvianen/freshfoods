@@ -1,0 +1,45 @@
+
+.profile_cont{
+    margin: 2em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings_cont{
+    margin: 1.5em auto;
+    width: 90%;
+    padding: 1.5em .5em;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: center;
+    border-radius: 1.5em;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.fa-user{
+    justify-self: center;
+}
+
+.fa-chevron-right{
+    justify-self: end;
+}
+
+.profile{
+    width: 6em;
+    height: 6em;
+    margin: 1em 0;
+    align-self: center;
+    border-radius: 50%;
+}
+
+.settings_icon{
+    width: 2rem;
+    height: 2rem;
+    font-size: 2rem;
+}
+
+.icon{
+    color: var(--secondary-color);
+}

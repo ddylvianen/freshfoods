@@ -1,0 +1,142 @@
+
+
+.personal-cont{
+    width: 90%;
+    margin: 4em auto;
+    padding: 1em 2em;
+    border-radius: 2em;
+    display: grid;
+    grid-template-areas: 
+    'personal-profile personal-name personal-edit-icon'
+    'personal-profile personal-addres personal-addres'
+    'personal-profile personal-payment personal-payment';
+    gap: .5em 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.personal-profile{
+    aspect-ratio: 1 / 1;
+    width: 7em;
+    align-self: center;
+    border-radius: 50%;
+    grid-area: personal-profile;
+}
+
+.personal-name{
+    grid-area: personal-name;
+}
+
+.personal-cont > * > strong{
+    display: block;
+}
+
+.personal-addres{
+    grid-area: personal-addres;
+}
+
+.personal-payment{
+    grid-area: personal-payment;
+}
+
+.personal-edit-icon{
+    grid-area: personal-edit-icon;
+    width: 1em;
+    justify-self: end;
+}
+
+.shopping-cart-cont{
+    width: 90%;
+    margin: 0 auto 5em;
+    min-height: 20em;
+    padding: 1em .2em;
+    border-radius: 2em;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.shopping-heading-cont{
+    display: grid;
+    padding: 0 2em;
+    grid-template-columns: 1fr 7fr 2fr;
+    gap: .5em;
+    border-bottom: var(--highlight-color) solid .1em;
+}
+
+.shopping-heading-icon{
+    width: 2em;
+}
+
+.shopping-heading-small{
+    align-self: end;
+    justify-self: end;
+}
+
+.shopping-item_cont{
+ margin: 2em 0;  
+}
+
+.shopping-item-child{
+    padding: 1em;
+    display: grid;
+    grid-template-columns: 1fr repeat(2, 2fr) 1fr 1fr;
+    gap: .5em 1em;
+}
+
+.shopping-item-child-count{
+    justify-self: end;
+    align-self: center;
+}
+.shopping-item-child-img{
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    justify-self: center;
+    align-self: center;
+    width: 5em;
+}
+
+.shopping-item-name-cont{
+    align-self: center;
+    justify-self: baseline;
+
+}
+.shopping-item-child-heading{
+    align-self: end;
+}
+
+.shopping-item-child-text{
+    grid-area: text;
+}
+
+.shopping-item-child-price{
+    justify-self: center;
+    align-self: center;
+}
+
+.shopping-item-child-trashcan{
+    width: 1.6em;
+    height: 1.6em;
+    align-self: center;
+}
+
+.shopping-item-total-cont{
+    border-bottom: var(--highlight-color) solid .1em;
+    width: 80%;
+    margin: auto;
+    display: grid;
+    padding: 0 1em;
+    grid-template-columns: 2fr 8fr;
+    gap: .5em; 
+}
+
+.shopping-item-total-price{
+    justify-self: end;
+}
+
+.shopping-order-btn{
+    display: block;
+    padding: 1em 6em;
+    margin: 2em auto 1em;
+    border-radius: 2em;
+    border: none;
+    font-weight: bold;
+    background-color: var(--secondary-color);
+}

@@ -1,0 +1,15 @@
+{% load static %}
+{% load compress %}
+{% compress css %}
+    <link rel="stylesheet" href="{% static '/css/algemeen.css' %}">
+    <link rel="stylesheet" href="{% static '/css/create-login-form.css' %}">
+{% endcompress %}
+
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <label for="{{ field.label }}">{{field.label}}</label>
+        {{field}}
+    {% endfor %}
+    <input type="submit" value="submit">
+</form>
