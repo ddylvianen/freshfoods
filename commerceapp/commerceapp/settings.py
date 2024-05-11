@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-vea&=_m)xsbh4tl!9v=aufl9)lf3kc7u)9(-*6&)wq&ccbt*a*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['codewithdylanv.eu.pythonanywhere.com', '127.0.0.1', 'https://freshfoods-47b1fe8db0aa.herokuapp.com/']
+ALLOWED_HOSTS = ['codewithdylanv.eu.pythonanywhere.com', '127.0.0.1']
 
 AUTH_USER_MODEL = 'auth.User'
 
