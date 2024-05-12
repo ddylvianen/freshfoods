@@ -68,7 +68,7 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             profile = profileUser(user=user)
             profile.save()
-            return redirect('login')    
+            return redirect('fresh:login')    
         else: 
             message = 'something went wrong! \n please try again!'
     else:
