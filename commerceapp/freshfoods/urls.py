@@ -14,5 +14,5 @@ urlpatterns = [
     path('clear-cart', views.clear_shopping_cart, name='clear_shopping_cart'),
     path('remove/item/<int:id>', views.cart_item_remove, name='remove-item'),
     path('remove/all/item/<int:id>', views.cart_items_remove, name='item_remove'),
-    path('static_files/<path:path>', views.serve_static_file, name='serve_static_file'),
+    # path('static_files/<path:path>', views.serve_static_file, name='serve_static_file'),
 ]

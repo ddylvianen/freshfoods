@@ -188,20 +188,20 @@ def clear_shopping_cart(request):
     items.delete()
     return HttpResponse(status=200)
 
-def serve_static_file(request, path):
-    file_path = os.path.join('static_files', path)
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as f:
-            return HttpResponse(f.read(), content_type=mimetypes.guess_type(file_path)[0])
-    else:
-        return HttpResponseNotFound()
+# def serve_static_file(request, path):
+#     file_path = os.path.join('static_files', path)
+#     if os.path.exists(file_path):
+#         with open(file_path, 'rb') as f:
+#             return HttpResponse(f.read(), content_type=mimetypes.guess_type(file_path)[0])
+#     else:
+#         return HttpResponseNotFound()
     
 
-def serve_media_file(request, path):
-    file_path = os.path.join('media_files', path)
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as f:
-            return HttpResponse(f.read(), content_type=mimetypes.guess_type(file_path)[0])
-    else:
-        return HttpResponseNotFound()
+# def serve_media_file(request, path):
+#     file_path = os.path.join('media_files', path)
+#     if os.path.exists(file_path):
+#         with open(file_path, 'rb') as f:
+#             return HttpResponse(f.read(), content_type=mimetypes.guess_type(file_path)[0])
+#     else:
+#         return HttpResponseNotFound()
 
