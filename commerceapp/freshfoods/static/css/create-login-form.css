@@ -24,3 +24,7 @@ form > * > *{
     font-size: 2rem;
     padding: 2rem 5rem
 }
+
+li{
+    font-size: 2rem;
+}
