@@ -1,0 +1,26 @@
+body{
+    width: 100vw;
+    width: 100svw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-auto-rows: repeat(3, 5rem);
+    gap: 2rem;
+}
+
+form > * > *{
+    margin: 0 1rem;
+    font-size: 3rem;
+    width: 40vw;
+}
+
+#btn{
+    font-size: 2rem;
+    padding: 2rem 5rem
+}
