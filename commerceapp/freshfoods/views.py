@@ -44,7 +44,7 @@ def login_user(request):
                 return redirect('/')
             else:
                 message = 'account does not exist!'
-                return redirect('register')
+                return redirect('fresh:register')
         else:
             message = 'something went wrong! \n please try again!'
     else:
