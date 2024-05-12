@@ -42,14 +42,38 @@ class product(models.Model):
     img = CompressedImageField(upload_to='products', default="default_product.jpg", null=True, quality=50)
     lastupdate = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
+    def discount_price(self):
+      return round(float(self.price) - ((self.discount / 100) * float(self.price)),2)
+    
     def __str__(self):
       return self.name
     
 
 class cart_item(models.Model):
+   invoice = models.CharField(max_length=50, null=True, default="")
    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
    item = models.ForeignKey(product, null=True, on_delete=models.CASCADE)
    quantity = models.IntegerField(null=True, default=1)
+   price = models.DecimalField(null=True, blank=True, decimal_places=2, max_digits=18)
+
+   def remove_item(self):
+       self.quantity -= 1
+       self.price_item()
+       self.save()
+
+   def add_item(self):
+      self.quantity += 1
+      self.price_item()
+      self.save()
+
+   def price_item(self):
+      self.price = round((float(self.item.discount_price()) * self.quantity), 2)
+      self.save()
+
+   def add_invouce(self, invoise):
+      self.invoice = invoise
+      self.price_item()
+      self.save()
 
    def __str__(self):
       return f"{self.item.name} of {self.user.username}"
@@ -58,25 +82,39 @@ class cart_item(models.Model):
 class shoppingcart(models.Model):
    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
    products = models.ManyToManyField(cart_item, default=None)
-   total_items = models.IntegerField(null=True, default=0)
+   def total_item(self):
+      total = 0
+      for i in self.products.all():
+         total += i.quantity
+      return total
 
+   def total_price(self):
+      total = 0
+      print(self.products.all())
+      for i in self.products.all():
+         i.price_item()
+         total += i.price
+      return total
+   def remove_item(self, item):
+      self.products.remove(item)
+      self.save()
    
    def __str__(self):
       return "cart of " + self.user.username
 
 
 class order(models.Model):
-   STATUS = ((1,'PENDING'), 
-             (2, 'PACKING'), 
-             (3, 'ON THE WAY'), 
-             (4, 'COMPLETED'), 
-             (5, 'REJECTED'))
+   STATUS = (('PENDING','PENDING'), 
+             ('PACKING', 'PACKING'), 
+             ('ON THE WAY', 'ON THE WAY'), 
+             ('COMPLETED', 'COMPLETED'), 
+             ('REJECTED', 'REJECTED'))
 
-   user = models.OneToOneField(User, null=True,on_delete=models.SET_NULL)
-   product = models.ForeignKey(product, null=True, on_delete=models.DO_NOTHING)
+   user = models.ForeignKey(User, null=True,on_delete=models.SET_NULL)
+   product = models.ManyToManyField(cart_item)
    status = models.CharField(max_length=50, default=1, choices=STATUS)
-   invoice = models.CharField(max_length=50, null=True, blank=True)
-   date = models.DateField(null=True, blank=True)
+   invoice = models.CharField(max_length=50, null=True, blank=True, unique=True, auto_created=True)
+   date = models.DateField(auto_now_add=True, null=True)
 
    def __str__(self):
       return self.invoice

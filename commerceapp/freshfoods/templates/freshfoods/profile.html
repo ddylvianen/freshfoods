@@ -26,10 +26,9 @@
         <span></span>
         <a href="/"><i class="fa-solid fa-xmark heading-xmark"></i></a>
     </header>
-
     <section class="profile_cont">
-        <img src="{% static '/pics/profile.png' %}" alt="profile photo" class="profile">
-        <h5>Dylan Vianen</h5>
+        <img src="{{link}}{{profile.img}}" alt="profile photo" class="profile">
+        <h5>{{profile.user.first_name}} {{profile.user.last_name}}</h5>
     </section>
 
     <section>

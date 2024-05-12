@@ -1,14 +1,14 @@
+from datetime import datetime
 import mimetypes
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import *
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .forms import createuserform, loginform, UserProfileForm
 from django.http import HttpResponse, HttpResponseNotFound
-from django.templatetags.static import static
-from pathlib import Path
-import os
+from django.core.exceptions import ObjectDoesNotExist
+
 
 
 # Create your views here.
@@ -17,12 +17,10 @@ def home(request):
     Tags = tag.objects.all()
     products = product.objects.all()
     user_info = profileUser.objects.get(user=request.user)
-    #user_info.img = 
-    cart = shoppingcart.objects.filter(user=request.user)
-    if cart.exists():
-        cart = cart[0]
+    try:
+        cart = shoppingcart.objects.get(user=request.user)
         items = cart.products.all()
-    else:
+    except ObjectDoesNotExist:
         items = {}
 
     content = {'products': products,
@@ -32,11 +30,6 @@ def home(request):
                'link': "/media/"}
 
     return render(request, 'freshfoods/index.html', content)
-
-@login_required(login_url='/login')
-def profile(request):
-    content = {}
-    return render(request, 'freshfoods/profile.html', content)
 
 def login_user(request):
     if request.method == "POST":
@@ -87,121 +80,98 @@ def register_user(request):
 
 @login_required(login_url='/login')
 def settings(request):
-    profile = ""
-    content = {}
+    profile = profileUser.objects.get(user=request.user)
+    content = {'profile': profile,
+               'link': "/media/"}
     return render(request, 'freshfoods/profile.html', content)
 
 @login_required(login_url='/login')
 def profile(request):
-    return render(request, 'freshfoods/profile.html')
+    profile = profileUser.objects.get(user=request.user)
+    content = {'profile': profile,
+               'link': "/media/"}
+    return render(request, 'freshfoods/profile.html', content)
 
 def cart_add_item(request, id):
     item = product.objects.get(id=id)
-    cart = shoppingcart.objects.filter(user=request.user)
-    if cart.exists():
-        cart = cart[0]
-        item_cart = cart_item.objects.all().filter(item=item, user=request.user)
-        if item_cart.exists():
-            item_cart = item_cart[0]
-            item_cart.quantity += 1
-        else:
-            item_cart = cart_item(quantity=1, user=request.user)
-            item_cart.item = item    
-        item_cart.save()
-        cart.products.add(item_cart)
-    else:
-        item_cart = cart_item(quantity=1, user=request.user)
-        item_cart.item = item 
-        item_cart.save() 
-        cart = shoppingcart(user=request.user, )
-        cart.save()
-        cart.products.add(item_cart)
+    deff_item_cart = {'quantity': 0, 'user': request.user, 'item': item, 'invoice': "", "price": 0}
+    item_cart = cart_item.objects.get_or_create(item=item, user=request.user, invoice='', defaults=deff_item_cart)[0]
+    
+    item_cart.save()
+    item_cart.price_item()
+    item_cart.add_item()
+    item_cart.save()
 
-    item_cart.save()  
-    cart.total_items += 1
+    deff_cart = {"user": request.user}
+    cart = shoppingcart.objects.get_or_create(user=request.user, defaults=deff_cart)[0]
+    
+    cart.save()
+    cart.products.add(item_cart) 
     cart.save()
 
     return HttpResponse(status=200)
 
 def cart_item_remove(request, id):
     produc = product.objects.get(id=id)
-    item = cart_item.objects.get(user=request.user, item=produc)
-    item.quantity -= 1
-    item.save()
+    cart_item.objects.get(user=request.user, item=produc, invoice="").remove_item()
 
     return HttpResponse(status=200)
 
-def cart_items_remove(request,id):
+def cart_items_remove(request, id):
     produc = product.objects.get(id=id)
-    item = cart_item.objects.all().filter(user=request.user, item=produc)[0]
-    cart = shoppingcart.objects.get(user=request.user)
-    cart.products.remove(item)
-    cart.save()
-    item.delete()
-    print(item)
+    cart_item.objects.get(user=request.user, item=produc, invoice="").delete()
     return HttpResponse(status=200)
+
 
 def get_item(request, id):
     produc = product.objects.get(id=id)
-    item = cart_item.objects.filter(user=request.user, item=produc)
-    if item.exists():
-        item = item[0]
+    try:
+        item = cart_item.objects.get(user=request.user, invoice="", item=produc)
+        item.price_item()
         num = item.quantity
-    else:
+    except ObjectDoesNotExist:
         num = 0
 
     return HttpResponse(num, status=200)
+
 @login_required(login_url='/login')
 def shopping_cart(request):
-    cart = shoppingcart.objects.filter(user=request.user).prefetch_related("products")
-    totalitem = 0
-    totalprice = 0
-
-    if cart.exists():
-        cart = cart[0]
-        for i in cart.products.all():
-            print(i)
-            item = i.item
-            totalitem += i.quantity
-            if item.discount == 0:
-                item.price = round((float(item.price) * i.quantity), 2)
-            else:
-                item.price = round(float(item.price) - ((item.discount / 100) * float(item.price)* i.quantity), 2)
-            
-            totalprice += item.price
-    else:
+    profile = profileUser.objects.get(user=request.user)
+    try:
+        cart = shoppingcart.objects.get(user=request.user)
+        print(cart.products)
+        totalitem = cart.total_item()
+        totalprice = cart.total_price()
+    except ObjectDoesNotExist:
+        totalitem = 0
+        totalprice = 0
         cart = {}
 
     content = {'cart': cart, 
                'totalitem': totalitem, 
                'totalprice': round(totalprice, 2),
+               'profile': profile,
                'link': "/media/",}
     
     return render(request, 'freshfoods/shopping_cart.html', content)
 
 
 def clear_shopping_cart(request):
-    cart = shoppingcart.objects.all().filter(user=request.user)
-    items = cart_item.objects.all().filter(user=request.user)
-
-    cart.delete()
-    items.delete()
+    shoppingcart.objects.all().filter(user=request.user).delete()
     return HttpResponse(status=200)
 
-# def serve_static_file(request, path):
-#     file_path = os.path.join('static_files', path)
-#     if os.path.exists(file_path):
-#         with open(file_path, 'rb') as f:
-#             return HttpResponse(f.read(), content_type=mimetypes.guess_type(file_path)[0])
-#     else:
-#         return HttpResponseNotFound()
-    
+def create_order(request):
+    inv = f"#{request.user} {datetime.today()}"
+    print(inv)
+    user_order = order(user=request.user, invoice=inv)
+    products = cart_item.objects.filter(user=request.user, invoice="")
+    cart = shoppingcart.objects.get(user=request.user)
+    user_order.save()
 
-# def serve_media_file(request, path):
-#     file_path = os.path.join('media_files', path)
-#     if os.path.exists(file_path):
-#         with open(file_path, 'rb') as f:
-#             return HttpResponse(f.read(), content_type=mimetypes.guess_type(file_path)[0])
-#     else:
-#         return HttpResponseNotFound()
+    products.update(invoice=inv)
+    cart.delete()
+
+    user_order.product.bulk_create(objs=products)
+    user_order.save()
+    return HttpResponse(status=200)
 

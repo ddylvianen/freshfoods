@@ -12,6 +12,7 @@ urlpatterns = [
     path("get/cart/item/<int:id>", views.get_item, name='item-cart'),
     path('add/item/<int:id>/', views.cart_add_item, name='add_cart_item'),
     path('clear-cart', views.clear_shopping_cart, name='clear_shopping_cart'),
+    path('create/order', views.create_order, name='order_create'),
     path('remove/item/<int:id>', views.cart_item_remove, name='remove-item'),
     path('remove/all/item/<int:id>', views.cart_items_remove, name='item_remove'),
     # path('static_files/<path:path>', views.serve_static_file, name='serve_static_file'),

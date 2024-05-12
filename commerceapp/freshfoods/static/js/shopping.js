@@ -25,4 +25,16 @@ $(document).ready(function () {
             }
         });
     });
+
+    $("#oder-btn").on('click', function(){
+        el = $(".shopping-item-total-cont, #product-item-count, #shopping-cont");
+        message = $("<h5>Order was placed!</h5>").css({'text-align': 'center', 'grid-column': 'span 2'});
+        $.ajax({
+            url: `create/order`,
+            success: () =>{
+                el.html('');
+                $("#oder-btn").hide();
+                $(".shopping-item-total-cont").html(message).css('margin-top', '15rem');
+            },});
+    });
 });

@@ -18,10 +18,6 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.fa-user{
-    justify-self: center;
-}
-
 .fa-chevron-right{
     justify-self: end;
 }
@@ -38,6 +34,7 @@
     width: 2rem;
     height: 2rem;
     font-size: 2rem;
+    justify-self: center;
 }
 
 .icon{
