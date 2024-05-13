@@ -5,13 +5,13 @@
     <link rel="stylesheet" href="{% static '/css/create-login-form.css' %}">
 {% endcompress %}
 
-<form method="POST">
+<form method="POST" class="form">
     {% csrf_token %}
     {% for field in form %}
-        <div>
+        <p>
             <label for="{{ field.label }}">{{field.label}}</label>
             {{field}}
-        </div>
+        </p>
     {% endfor %}
     <input type="submit" value="submit" id="btn">
 </form>

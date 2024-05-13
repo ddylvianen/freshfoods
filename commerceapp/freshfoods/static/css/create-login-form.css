@@ -1,30 +1,46 @@
 body{
     width: 100vw;
     width: 100svw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-form{
-    justify-content: center;
-    align-items: center;
     display: grid;
-    grid-auto-rows: repeat(3, 5rem);
-    gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+.form{
+    display: grid;
+    grid-auto-columns: 1fr;
+    gap: 1em;
+}
+.form > p{
+    display: flex;
 }
 
-form > * > *{
-    margin: 0 1rem;
-    font-size: 3rem;
-    width: 40vw;
+.form > #btn{
+    width: 80%;
+    padding: .5em 0;
+    justify-self: center;
+    align-self: center;
 }
 
-#btn{
-    font-size: 2rem;
-    padding: 2rem 5rem
+.form > p > span{
+    font-size: 1.2rem;
+    display: block;
+    flex-grow: 0;
 }
 
-li{
-    font-size: 2rem;
+.form > p > input{
+    margin-left: auto;
+    height: 2rem;
 }
+
+.form > ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .form > ul > li{
+    width: 33.33%;
+} */

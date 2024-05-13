@@ -6,10 +6,10 @@
 <link rel="stylesheet" href="{% static '/css/create-login-form.css' %}">
 {% endcompress %}
 
-<form method="POST">
+<form method="POST" class="form">
     {% csrf_token %}
-    {{user_form}}       
+    
+    {{ user_form.as_p }}
+    
     <input type="submit" value="submit" id="btn">
 </form>
-
-<p>{{ message }}</p>
