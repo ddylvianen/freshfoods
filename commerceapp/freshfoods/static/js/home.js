@@ -5,12 +5,11 @@ $(document).ready(function () {
     $("#shopping-cont").on('click', 'a', function (){
         item = $(this).find('.item-add-cont');
         const id = parseInt(this.id.replace('product-', ''));
-        const num = item.find('.item-add-remove-number')
+        const num = item.find('.item-add-remove-number').find('p')
 
         
 
         if ($(item).is(':hidden')){
-            console.log($('.item-add-cont'));
             $.ajax({
                 url: `get/cart/item/${id}`,
                 success: (res)=>{num.text(res)},

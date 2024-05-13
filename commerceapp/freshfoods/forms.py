@@ -32,3 +32,17 @@ class UserProfileForm(forms.ModelForm):
 class loginform(forms.Form):
     username = forms.CharField(max_length=60, widget=forms.TextInput(attrs={'class': 'login-form-item', 'id': 'Username'}))
     password = forms.CharField(max_length=60, widget=forms.PasswordInput(attrs={'class': 'login-form-item', 'id': 'Password'}))
+
+
+# class editprofileform(forms.Form):
+    # username = forms.CharField()
+    # first_name = forms.CharField()
+    # last_name = forms.CharField()
+
+    # birthday = forms.CharField()
+    # addres = forms.CharField()
+
+    # payment_number = forms.CharField()
+    # exp_number = forms.CharField()
+    # cvc_number = forms.CharField()
+    # cardholder = forms.CharField()
