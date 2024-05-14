@@ -35,11 +35,12 @@ body{
     border-radius: 2em;
     justify-self: center;
     align-self: center;
+    background-color: var(--secondary-color);
 }
 
-    .form > p > span{
-        font-size: 1.6rem;
-        display: block;
+.form > p > span{
+    font-size: 1.6rem;
+    display: block;
     flex-grow: 0;
 }
 
