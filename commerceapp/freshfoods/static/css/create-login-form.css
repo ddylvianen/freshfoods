@@ -47,6 +47,7 @@ body{
 .form > p > input{
     margin-left: auto;
     height: 2rem;
+    width: 40%;
 }
 
 .form > ul{
