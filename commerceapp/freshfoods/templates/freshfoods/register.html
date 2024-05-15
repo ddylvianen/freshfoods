@@ -2,9 +2,9 @@
 {% load compress %}
 
 {% compress css %}
-<link rel="stylesheet" href="{% static '/css/algemeen.css' %}">
-<link rel="stylesheet" href="{% static '/css/create-login-form.css' %}">
-<link rel="stylesheet" href="{% static '/css/create-form.css' %}">
+    <link rel="stylesheet" href="{% static '/css/algemeen.css' %}">
+    <link rel="stylesheet" href="{% static '/css/create-login-form.css' %}">
+    <link rel="stylesheet" href="{% static '/css/create-form.css' %}">
 {% endcompress %}
 
 <header class="heading" style="align-self: start; width: 100%;">
@@ -16,32 +16,25 @@
 
 <form method="POST" class="form" style="">
     {% csrf_token %}
-    <p>
-        <label for="{{user_form.username.label}}">{{ user_form.username.label }}</label> 
-        {{ user_form.username }}
-    </p>
-    <p>
-        <label for="{{user_form.first_name.label}}">{{ user_form.first_name.label }}</label> 
-        {{ user_form.first_name }}
-    </p>
-    <p>
-        <label for="{{user_form.last_name.label}}">{{ user_form.last_name.label }}</label> 
-        {{ user_form.last_name }}
-    </p>
-    <p>
-        <label for="{{user_form.email.label}}">{{ user_form.email.label }}</label> 
-        {{ user_form.email }}
-    </p>
-    <p>
-        <label for="{{user_form.password1.label}}">{{ user_form.password1.label }}</label> 
-        {{ user_form.password1 }}
-    </p>
-    <p>
-        <label for="{{user_form.password2.label}}">{{ user_form.password2.label }}</label> 
-        {{ user_form.password2 }}
-    </p>
-    <p>
-    {{user_form.helptext}}
+    <h2>Create your account</h2>
+    {% for field in user_form %}
+        {{field}}
+        {{field.help_text}}
+    {% endfor %}
+    <p class="messages">
+    {% comment %} {% if user_form.errors %}
+        {% for field in user_form %}
+            {% for error in field.errors %}
+                {{error}}
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        {% for field in user_form %}
+            {% if field.label == 'Password'%}
+                {{field.help_text}}
+            {% endif %}
+        {% endfor %}
+    {% endif %} {% endcomment %}
     </p>
     <input type="submit" value="register" id="btn">
 </form>

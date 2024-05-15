@@ -14,11 +14,9 @@
 
 <form method="POST" class="form">
     {% csrf_token %}
+    <h2>Login</h2>
     {% for field in form %}
-        <p>
-            <label for="{{ field.label }}">{{field.label}}</label>
-            {{field}}
-        </p>
+        {{field}}
     {% endfor %}
     <input type="submit" value="login" id="btn">
     <a href="/register">Dont have a acount yet?</a>

@@ -1,80 +1,59 @@
-body{
+body {
     width: 100vw;
     width: 100svw;
 }
 
-.form{
+.form {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--highlight-color);
-    border-radius: 3em;
-    grid-column: 2;
-    grid-row: 2;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 30rem;
-    /* margin: 12rem auto 0; */
-    padding: 3em 1em;
-    gap: 1em;
-}
-
-.form > p{
-    display: flex;
     width: 90%;
+    margin: 0 auto;
+    gap: 2em;
 }
 
-.form > #btn{
-    width: 60%;
+.form>input {
     height: 3em;
     font-size: 1.25em;
     padding: .5em 0;
-    border-radius: 2em;
-    justify-self: center;
-    align-self: center;
-    background-color: var(--secondary-color);
+    border: none;
+    border-bottom: 1px solid var(--highlight-color);
 }
 
-.form > p > span{
-    font-size: 1.6rem;
-    display: block;
-    flex-grow: 0;
+.form>input:focus {
+    border: none;
+    border-bottom: 5px solid var(--highlight-color);
+    outline: none;
 }
 
-.form > p > input{
-    margin-left: auto;
-    height: 2rem;
-    width: 40%;
-}
-
-.form > ul{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* .form > ul > li{
-    width: 33.33%;
-} */
-
-a{
-    /* align-self: start; */
-    font-size: 1.25em;
-    text-decoration: underline;
-    width: max-content;
-    color: var(--main-color);
-}
-
-.form > p > label{
+.form>#btn,
+.form>a {
+    width: 80%;
+    margin: 0 auto;
     text-align: center;
-    font-size: 1.75rem;
-    width: max-content;
+    font-size: 2rem;
 }
 
-.heading{
-    grid-column: span 2;
+.form>h2 {
+    margin: auto;
+}
+
+.form>ul {
+    max-width: 50%;
+    text-align: start;
+    list-style: none;
+}
+
+.form>a {
+    text-decoration: underline;
+}
+
+.form>#btn {
+    border-radius: 2em;
+    outline: none;
+    border: none;
+    background-color: var(--secondary-color);
 }

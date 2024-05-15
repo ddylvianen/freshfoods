@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from .models import *
+import unicodedata
 
 class createuserform(UserCreationForm):
     class Meta:
@@ -14,11 +15,16 @@ class createuserform(UserCreationForm):
                   'password1',
                   'password2'
                  ]
-        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].help_text = ""
-        self.fields['password2'].help_text = None
+        self.fields['password2'].help_text = ""
+        self.fields['username'].widget.attrs['placeholder'] = 'Enter your username'
+        self.fields['first_name'].widget.attrs['placeholder'] = 'Enter your first name'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Enter your last name'
+        self.fields['email'].widget.attrs['placeholder'] = 'Enter your email'
+        self.fields['password1'].widget.attrs['placeholder'] = 'Enter your password'
+        self.fields['password2'].widget.attrs ={'placeholder': 'Enter your password again, for verification'}
+
         
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -30,8 +36,8 @@ class UserProfileForm(forms.ModelForm):
 
 
 class loginform(forms.Form):
-    username = forms.CharField(max_length=60, widget=forms.TextInput(attrs={'class': 'login-form-item', 'id': 'Username'}))
-    password = forms.CharField(max_length=60, widget=forms.PasswordInput(attrs={'class': 'login-form-item', 'id': 'Password'}))
+    username = forms.CharField(max_length=60, widget=forms.TextInput(attrs={'class': 'login-form-item', 'id': 'Username', 'placeholder': 'Username'}))
+    password = forms.CharField(max_length=60, widget=forms.PasswordInput(attrs={'class': 'login-form-item', 'id': 'Password', 'placeholder': 'Password'}))
 
 
 # class editprofileform(forms.Form):
