@@ -7,13 +7,14 @@ $(document).ready(function () {
         const id = parseInt(this.id.replace('product-', ''));
         const num = item.find('.item-add-remove-number').find('p');
 
-        if ($(item).is(':hidden')) {
+        if (item.is(':hidden')) {
             // add the current count to the pop up
-            $.ajax({
-                url: `get/cart/item/${id}`,
-                success: (res) => { num.text(res); },
-            });
-
+            if(parseInt(num.text()) == -1){
+                $.ajax({
+                    url: `get/cart/item/${id}`,
+                    success: (res) => { num.text(res); },
+                });
+            }
 
             $.ajax({
                 url: `add/item/${id}`,
@@ -116,7 +117,7 @@ function check_running(name, res, id=0) {
     else {
         if (shopping_num.text() === '+1') {
             shopping_num.text('');
-            $.ajax({url: `remove/all/item/${id}`});
+            // $.ajax({url: `remove/all/item/${id}`});
         }
         else {
             const num = parseInt(shopping_num.text().replace("+", '')) - 1;
