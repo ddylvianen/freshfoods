@@ -16,7 +16,7 @@
 
 <form method="POST" class="form" style="">
     {% csrf_token %}
-    <h2>Create your account</h2>
+    <h1>Create your account</h1>
     {% for field in user_form %}
         {{field}}
         {{field.help_text}}

@@ -15,7 +15,7 @@ body {
     gap: 2em;
 }
 
-.form>input {
+.form > input {
     height: 3em;
     font-size: 1.25em;
     padding: .5em 0;
@@ -23,35 +23,35 @@ body {
     border-bottom: 1px solid var(--highlight-color);
 }
 
-.form>input:focus {
+.form > input:focus {
     border: none;
     border-bottom: 5px solid var(--highlight-color);
     outline: none;
 }
 
-.form>#btn,
-.form>a {
+.form > #btn,
+.form > a {
     width: 80%;
     margin: 0 auto;
     text-align: center;
     font-size: 2rem;
 }
 
-.form>h2 {
+.form > h1 {
     margin: auto;
 }
 
-.form>ul {
+.form > ul {
     max-width: 50%;
     text-align: start;
     list-style: none;
 }
 
-.form>a {
+.form > a {
     text-decoration: underline;
 }
 
-.form>#btn {
+.form > #btn {
     border-radius: 2em;
     outline: none;
     border: none;

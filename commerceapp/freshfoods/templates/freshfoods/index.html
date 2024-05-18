@@ -25,7 +25,9 @@
         </div>
         <span></span>
         <a href="/shopping_cart" class="shop-nav-cont">
-            <strong class="shopping-number" id='shopping-number'></strong>
+            <strong class="shopping-number" id='shopping-number'>
+                {% if total != 0 %}+{{total}}{% endif %}
+            </strong>
             <svg class="shopping-cart" viewBox="0 0 34 37" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M7 2L2 8.66667V32C2 32.8841 2.35119 33.7319 2.97631 34.357C3.60143 34.9821 4.44928 35.3333 5.33333 35.3333H28.6667C29.5507 35.3333 30.3986 34.9821 31.0237 34.357C31.6488 33.7319 32 32.8841 32 32V8.66667L27 2H7Z"

@@ -1,0 +1,14 @@
+{% load static %}
+{% load compress %}
+{% compress css %}
+    <link rel="stylesheet" href="{% static '/css/algemeen.css' %}">
+    <link rel="stylesheet" href="{% static '/css/settings.css' %}">
+{% endcompress %}
+
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        {{field}}
+    {% endfor %}
+    <input type="submit" value="save changes" id="btn">
+</form>

@@ -19,15 +19,16 @@ def home(request):
     user_info = profileUser.objects.get(user=request.user)
     try:
         cart = shoppingcart.objects.get(user=request.user)
-        items = cart.products.all()
+        totalitem = cart.total_item()
     except ObjectDoesNotExist:
         items = {}
+        totalitem = 0
 
     content = {'products': products,
                'tags': Tags,
-               'cart-items': items,
+               'total': totalitem,
                'profileuser': user_info,
-               'link': "/media/"}
+               'link': "/media/",}
 
     return render(request, 'freshfoods/index.html', content)
 
