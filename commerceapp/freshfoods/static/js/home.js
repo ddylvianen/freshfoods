@@ -50,7 +50,7 @@ $(document).ready(function () {
                     int = setTimeout(() => { item.toggle() }, 5_000);
                 }
                 else{item.hide();}
-                check_running(num.text(), 'remove');
+                check_running(num.text(), 'remove', id);
             }
         });
     });
@@ -96,7 +96,7 @@ $(document).ready(function () {
     });
 });
 
-function check_running(name, res) {
+function check_running(name, res, id=0) {
     const shopping_num = $("#shopping-number");
     if (res === 'add') {
         if (shopping_num.text().trim() === '') {
@@ -114,6 +114,7 @@ function check_running(name, res) {
     else {
         if (shopping_num.text() === '+1') {
             shopping_num.text('');
+            $.ajax({url: `remove/all/item/${id}`});
         }
         else {
             const num = parseInt(shopping_num.text().replace("+", '')) - 1;
