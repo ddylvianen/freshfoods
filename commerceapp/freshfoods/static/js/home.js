@@ -96,7 +96,6 @@ $(document).ready(function () {
     });
 });
 
-
 function check_running(name, res) {
     const shopping_num = $("#shopping-number");
     if (res === 'add') {
