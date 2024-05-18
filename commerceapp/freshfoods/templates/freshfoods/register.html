@@ -12,6 +12,7 @@
         <h1 class="logo-text logo-main">Fresh</h1>
         <h2 class="logo-text">foods</h2>
     </div>
+    <span></span>
 </header>
 
 <form method="POST" class="form" style="">
@@ -22,19 +23,11 @@
         {{field.help_text}}
     {% endfor %}
     <p class="messages">
-    {% comment %} {% if user_form.errors %}
         {% for field in user_form %}
             {% for error in field.errors %}
                 {{error}}
             {% endfor %}
         {% endfor %}
-    {% else %}
-        {% for field in user_form %}
-            {% if field.label == 'Password'%}
-                {{field.help_text}}
-            {% endif %}
-        {% endfor %}
-    {% endif %} {% endcomment %}
     </p>
     <input type="submit" value="register" id="btn">
 </form>

@@ -4,20 +4,24 @@
     <link rel="stylesheet" href="{% static '/css/algemeen.css' %}">
     <link rel="stylesheet" href="{% static '/css/create-login-form.css' %}">
 {% endcompress %}
+<body>
+    <header class="heading" style="align-self: start; width: 100%; display: block;">
+        <div class="logo-cont">
+            <h1 class="logo-text logo-main">Fresh</h1>
+            <h2 class="logo-text">foods</h2>
+        </div>
+        <span></span>
+    </header>
+    <span></span>
+    <form method="POST" class="form">
+        {% csrf_token %}
+        <h1>Login</h1>
+        {% for field in form %}
+            {{field}}
+        {% endfor %}
+        <input type="submit" value="login" id="btn">
+        <a href="/register">Dont have a acount yet?</a>
 
-<header class="heading" style="align-self: start; width: 100%;">
-    <div class="logo-cont">
-        <h1 class="logo-text logo-main">Fresh</h1>
-        <h2 class="logo-text">foods</h2>
-    </div>
-</header>
-
-<form method="POST" class="form">
-    {% csrf_token %}
-    <h1>Login</h1>
-    {% for field in form %}
-        {{field}}
-    {% endfor %}
-    <input type="submit" value="login" id="btn">
-    <a href="/register">Dont have a acount yet?</a>
-</form>
+        <h4>{{message}}</h4>
+    </form>
+</body>

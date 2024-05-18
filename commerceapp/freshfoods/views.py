@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import createuserform, loginform, UserProfileForm
 from django.http import HttpResponse, HttpResponseNotFound
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.core.cache import cache
 
 
 # Create your views here.
@@ -32,9 +32,11 @@ def home(request):
 
     return render(request, 'freshfoods/index.html', content)
 
+
 def login_user(request):
     if request.method == "POST":
         form = loginform(request.POST)
+        cache.set('LOGIN_COUNT', 0)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -44,8 +46,13 @@ def login_user(request):
                 message = 'login succesfull!'
                 return redirect('/')
             else:
-                message = 'account does not exist!'
-                return redirect('fresh:register')
+                if request.session.get('failed_attempts', 0) >= 5:
+                    print('redirect!!')
+                    request.session['failed_attempts'] = 0
+                    return redirect('fresh:register')
+                else:
+                    message = 'account does not exist! please try again!'
+                    request.session['failed_attempts'] = request.session.get('failed_attempts', 0) + 1
         else:
             message = 'something went wrong! \n please try again!'
     else:

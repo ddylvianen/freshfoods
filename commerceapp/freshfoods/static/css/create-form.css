@@ -1,4 +1,10 @@
 .form{
-    margin: 6rem auto 0;
     width: 40rem;
+}
+
+@media screen and (orientation: landscape) {
+    .form{
+        margin: 2rem auto 0;
+        /* width: 20rem; */
+    }
 }
