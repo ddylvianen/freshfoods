@@ -59,7 +59,10 @@ class cart_item(models.Model):
    def remove_item(self):
        self.quantity -= 1
        self.price_item()
-       self.save()
+       if(self.quantity == 0):
+         self.delete()
+       else:
+          self.save()
 
    def add_item(self):
       self.quantity += 1
