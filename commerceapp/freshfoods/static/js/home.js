@@ -94,7 +94,9 @@ $(document).ready(function () {
         });
 
     });
+
 });
+
 
 function check_running(name, res, id=0) {
     const shopping_num = $("#shopping-number");
