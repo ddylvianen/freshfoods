@@ -1,13 +1,6 @@
-body {
-    width: 100vw;
-    width: 100svw;
-}
-
 .form {
     display: flex;
     flex-direction: column;
-    width: 90%;
-    margin: 10em auto;
     gap: 2em;
 }
 
@@ -20,7 +13,15 @@ body {
         transform: translate(-50%, -50%);
         margin: 0;
     }
-  }
+}
+
+@media screen and (orientation: landscape) {
+    .form{
+        margin: 2rem auto 0;
+        width: 50%;
+        /* width: 20rem; */
+    }
+}
 
 .form > input {
     height: 3em;

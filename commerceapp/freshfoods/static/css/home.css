@@ -77,8 +77,8 @@
     padding: .25em;
     width: 6rem;
     border-radius: 1em;
-    justify-self: center;
-    align-self: center;
+    /* justify-self: center;
+    align-self: center; */
 }
 
 .item-heading{color: var(--secondary-color);}

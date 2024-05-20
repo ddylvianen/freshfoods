@@ -1,18 +1,30 @@
 {% load static %}
 {% load compress %}
-
-{% compress css %}
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width min-height=device-height, initial-scale=1.0">
+    <title>Fresh foods</title>
+    {% compress css %}
     <link rel="stylesheet" href="{% static '/css/algemeen.css' %}">
     <link rel="stylesheet" href="{% static '/css/create-login-form.css' %}">
-    <link rel="stylesheet" href="{% static '/css/create-form.css' %}">
-{% endcompress %}
+    {% endcompress %}
+
+    {% compress js preload %}
+        <script src="https://kit.fontawesome.com/03deb1591a.js" crossorigin="anonymous"></script>
+        <script src="{% static 'jquery/jquery.js' %}"></script>
+        <script src="{% static 'jquery/plugins/jquery.cookie.js' %}"></script>
+    {% endcompress %}
+</head>
+<body>
+    
 
 <header class="heading" style="align-self: start; width: 100%;">
     <div class="logo-cont">
         <h1 class="logo-text logo-main">Fresh</h1>
         <h2 class="logo-text">foods</h2>
     </div>
-    <span></span>
 </header>
 
 <form method="POST" class="form" style="">
@@ -31,3 +43,5 @@
     </p>
     <input type="submit" value="register" id="btn">
 </form>
+</body>
+</html>
